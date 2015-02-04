@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Fira Sans', sans-serif;
+}
+a {
+    color: #2ecc40;
+    text-decoration: none;
+}
+a:hover {
+    color: #3d9970;
+    text-decoration: none;
+}
+header {
+    font-size: 3em;
+    padding: .5em 0;
+    text-align: center;
+    font-weight: 200;
+}
+aside {
+    font-size: .8em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+footer {
+    font-size: .8em;
+    text-align: center;
+    margin-top: 1em;
+}
+#main {
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow:0 0 1em #CCC;
+}
+#main_title {
+    font-size: 2em;
+}
+#problem {
+    font-size: 1.5em;
+}
+#pCategory {
+    font-size: .5em;
+}
+#pCategory::before {
+    content: "Category (in CP3): ";
+};
