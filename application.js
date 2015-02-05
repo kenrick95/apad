@@ -1,6 +1,25 @@
 /*jslint browser:true */
 /*global $*/
 "use strict";
+
+// Polyfill for toISOString
+if (!Date.prototype.toISOString) {
+    (function () {
+        function pad(number) {
+            return (number < 10) ? "0" + number : number;
+        }
+        Date.prototype.toISOString = function () {
+            return this.getUTCFullYear() +
+                '-' + pad(this.getUTCMonth() + 1) +
+                '-' + pad(this.getUTCDate()) +
+                'T' + pad(this.getUTCHours()) +
+                ':' + pad(this.getUTCMinutes()) +
+                ':' + pad(this.getUTCSeconds()) +
+                '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+                'Z';
+        };
+    }());
+}
 var Apad = function (username) {
     this.base_url = "http://uhunt.felix-halim.net/api/";
     this.config = {
@@ -48,10 +67,12 @@ Apad.prototype.getUserSubs = function (userId, callback) {
     });
 };
 Apad.prototype.getDayProblem = function (date, callback) {
-    Math.seedrandom(date);
+    Math.seedrandom(date.toISOString());
     this.constructProblemList(function (problemList) {
         var length = problemList.length,
             choice = Math.floor(Math.random() * length);
+        console.log(date);
+        console.log(choice);
         this.getProblemInfo(problemList[choice][0], function (data) {
             callback(data, problemList[choice][1]);
         });
