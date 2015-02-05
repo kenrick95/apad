@@ -5,7 +5,7 @@ This application randomly generates uVa problem everyday from CP3 problem list v
 
 ## Note
 * If connecting through HTTPS page, the connection to uHunt will be blocked by browser (although can be turned off) as uHunt is only served in HTTP connection. Please visit through non-HTTPS page.
-* Using [seedrandom](https://github.com/davidbau/seedrandom), I was able to generate same "random" number with the same seed, which is the date (although I observed different "random" number at Chrome, will look into this later). 
+* Using [seedrandom](https://github.com/davidbau/seedrandom), I was able to generate same "random" number with the same seed, which is the date ISO string.
 
 ## Credits
 * [davidbau/seedrandom](https://github.com/davidbau/seedrandom) v2.3.11
