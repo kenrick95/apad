@@ -87,12 +87,22 @@ Apad.prototype.constructProblemList = function (callback) {
                                             if (typeof subchapterValue.arr[subsubchapter][section] !== "number") {
                                                 sectionTitle = subchapterValue.arr[subsubchapter][section];
                                             } else {
-                                                problemList.push(
-                                                    [subchapterValue.arr[subsubchapter][section],
-                                                        chapterValue.title + ": "
-                                                        + subchapterValue.title + ": "
-                                                        + sectionTitle]
-                                                );
+                                                if (subchapterValue.arr[subsubchapter][section] < 0) {
+                                                    problemList.push(
+                                                        [-subchapterValue.arr[subsubchapter][section],
+                                                            chapterValue.title + ": "
+                                                            + subchapterValue.title + ": "
+                                                            + sectionTitle + " "
+                                                            + "(starred)"]
+                                                    );
+                                                } else {
+                                                    problemList.push(
+                                                        [subchapterValue.arr[subsubchapter][section],
+                                                            chapterValue.title + ": "
+                                                            + subchapterValue.title + ": "
+                                                            + sectionTitle]
+                                                    );
+                                                }
                                             }
 
                                         }
