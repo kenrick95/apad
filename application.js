@@ -20,15 +20,8 @@ if (!Date.prototype.toISOString) {
         };
     }());
 }
-var Apad = function (username) {
+var Apad = function () {
     this.base_url = "http://uhunt.felix-halim.net/api/";
-    this.config = {
-        "username": username,
-        "userId": null,
-    };
-    this.getUserId(username, function (data) {
-        this.userId = data;
-    }.bind(this));
 };
 Apad.prototype.getData = function (param, callback) {
     $.ajax({

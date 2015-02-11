@@ -5,7 +5,7 @@ $(document).ready(function () {
     function pad(number) {
         return (number < 10) ? "0" + number : number;
     }
-    var username, apad = null, problem, now, today;
+    var username, apad = null, problem, now, today, userId = null;
     if (!!localStorage) {
         if (localStorage.getItem("username") === null) {
             username = window.prompt("uVa username (Case sensitive)");
@@ -13,7 +13,10 @@ $(document).ready(function () {
         } else {
             username = localStorage.getItem("username");
         }
-        apad = new Apad(username);
+        apad = new Apad();
+        if (localStorage.getItem("userId") !== null) {
+            userId = localStorage.getItem("userId");
+        }
         now = new Date();
         today = now.getFullYear()
             + "-" + pad(now.getMonth() + 1)
@@ -22,7 +25,37 @@ $(document).ready(function () {
         console.log(today);
 
         apad.getDayProblem(new Date(today), function (choice, cpCat) {
+            function checkAc(problemNum, userId) {
+                apad.getUserSubsOnProblem(userId, problemNum, function (data) {
+                    console.log(data);
+                    var subs = data[userId].subs, ac = false, sub;
+                    if (subs.length > 0) {
+                        for (sub in subs) {
+                            if (subs.hasOwnProperty(sub)) {
+                                if (subs[sub][2] === 90) {
+                                    ac = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (ac) {
+                        $("#controls").html("Congrats! You have solved this problem.<br>Come back tomorrow!");
+                        $("#controls").addClass("ac");
+                    }
+                });
+            }
             problem = choice;
+            // choice = 100;
+            if (userId === null) {
+                apad.getUserId(username, function (data) {
+                    userId = data;
+                    localStorage.setItem("userId", data);
+                    checkAc(choice, userId);
+                });
+            } else {
+                checkAc(choice, userId);
+            }
             problem.category = cpCat;
             console.log(problem);
             problem.url = {
@@ -38,6 +71,21 @@ $(document).ready(function () {
             $("#pNumber").attr("href", problem.url.external);
             $("#pUdebug").attr("href", problem.url.udebug);
             $("#pSubmit").attr("href", problem.url.submit);
+            $("#dacu").text(problem.dacu);
+            $("#mrun").text(problem.mrun);
+            $("#mmem").text(problem.mmem);
+            $("#sube").text(problem.sube);
+            $("#noj").text(problem.noj);
+            $("#inq").text(problem.inq);
+            $("#ce").text(problem.ce);
+            $("#rf").text(problem.rf);
+            $("#re").text(problem.re);
+            $("#ole").text(problem.ole);
+            $("#tle").text(problem.tle);
+            $("#mle").text(problem.mle);
+            $("#wa").text(problem.wa);
+            $("#pe").text(problem.pe);
+            $("#ac").text(problem.ac);
         });
     }
 });

@@ -46,4 +46,33 @@ footer {
 }
 #pCategory::before {
     content: "Category (in CP3): ";
-};
+}
+.ac {
+    font-size: 2em;
+}
+.clear {
+    clear: both;
+}
+#dacu::before { content: "Distinct Accepted User: "; }
+#mrun::before { content: "Best Runtime: "; }
+#mmem::before { content: "Best Memory used: "; }
+#sube::before { content: "Submission Error: "; }
+#noj::before { content: "Can't be Judged: "; }
+#inq::before { content: "In Queue: "; }
+#ce::before { content: "Compilation Error: "; }
+#rf::before { content: "Restricted Function: "; }
+#re::before { content: "Runtime Error: "; }
+#ole::before { content: "Output Limit Exceeded: "; }
+#tle::before { content: "Time Limit Exceeded: "; }
+#mle::before { content: "Memory Limit Exceeded: "; }
+#wa::before { content: "Wrong Answer: "; }
+#pe::before { content: "Presentation Error: "; }
+#ac::before { content: "Accepted: "; }
+.stats {
+    display: inline-block;
+    width: 15em;
+    text-align: left;
+}
+.hidden {
+    display: none;
+}
