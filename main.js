@@ -13,6 +13,8 @@ $(document).ready(function () {
         } else {
             username = localStorage.getItem("username");
         }
+        $("#username").text(username);
+
         apad = new Apad();
         if (localStorage.getItem("userId") !== null) {
             userId = localStorage.getItem("userId");
@@ -22,12 +24,11 @@ $(document).ready(function () {
             + "-" + pad(now.getMonth() + 1)
             + "-" + pad(now.getDate())
             + "T00:00:00.000Z";
-        console.log(today);
-
+        // console.log(today);
         apad.getDayProblem(new Date(today), function (choice, cpCat) {
             function checkAc(problemNum, userId) {
                 apad.getUserSubsOnProblem(userId, problemNum, function (data) {
-                    console.log(data);
+                    // console.log(data);
                     var subs = data[userId].subs, ac = false, sub;
                     if (subs.length > 0) {
                         for (sub in subs) {
@@ -49,15 +50,21 @@ $(document).ready(function () {
             // choice = 100;
             if (userId === null) {
                 apad.getUserId(username, function (data) {
-                    userId = data;
-                    localStorage.setItem("userId", data);
-                    checkAc(choice, userId);
+                    if (data === 0) { // username not found
+                        window.alert("Username not found, please try again.");
+                        localStorage.removeItem("username");
+                        window.location.reload();
+                    } else {
+                        userId = data;
+                        localStorage.setItem("userId", data);
+                        checkAc(choice, userId);
+                    }
                 });
             } else {
                 checkAc(choice, userId);
             }
             problem.category = cpCat;
-            console.log(problem);
+            // console.log(problem);
             problem.url = {
                 main: "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=" + problem.pid,
                 external: "http://uva.onlinejudge.org/external/" + Math.floor(problem.num / 100) + "/" + problem.num + ".html",

@@ -64,8 +64,8 @@ Apad.prototype.getDayProblem = function (date, callback) {
     this.constructProblemList(function (problemList) {
         var length = problemList.length,
             choice = Math.floor(Math.random() * length);
-        console.log(date);
-        console.log(choice);
+        // console.log(date);
+        // console.log(choice);
         this.getProblemInfo(problemList[choice][0], function (data) {
             callback(data, problemList[choice][1]);
         });
