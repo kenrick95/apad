@@ -20,15 +20,8 @@ if (!Date.prototype.toISOString) {
         };
     }());
 }
-var Apad = function (username) {
+var Apad = function () {
     this.base_url = "http://uhunt.felix-halim.net/api/";
-    this.config = {
-        "username": username,
-        "userId": null,
-    };
-    this.getUserId(username, function (data) {
-        this.userId = data;
-    }.bind(this));
 };
 Apad.prototype.getData = function (param, callback) {
     $.ajax({
@@ -71,8 +64,8 @@ Apad.prototype.getDayProblem = function (date, callback) {
     this.constructProblemList(function (problemList) {
         var length = problemList.length,
             choice = Math.floor(Math.random() * length);
-        console.log(date);
-        console.log(choice);
+        // console.log(date);
+        // console.log(choice);
         this.getProblemInfo(problemList[choice][0], function (data) {
             callback(data, problemList[choice][1]);
         });
